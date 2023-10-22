@@ -12,61 +12,61 @@ class Vector2:
 	def show(self) -> list:
 		return [self.x, self.y]
 		
-	def __str__(self):
+	def __str__(self) -> str:
 		return str(self.show())
 	
-	def __add__(self, secondVector):
+	def __add__(self, secondVector: 'Vector2') -> 'Vector2':
 		return Vector2(self.x + secondVector.x, self.y + secondVector.y)
 		
-	def __sub__(self, secondVector):
+	def __sub__(self, secondVector: 'Vector2') -> 'Vector2':
 		return Vector2(self.x - secondVector.x, self.y - secondVector.y)
 		
-	def __neg__(self):
+	def __neg__(self) -> 'Vector2':
 		return Vector2(-self.x, -self.y)
 		
-	def __mul__(self, magnitude: float):
+	def __mul__(self, magnitude: float) -> 'Vector2':
 		return Vector2(self.x * magnitude, self.y * magnitude)
 		
-	def __truediv__(self, divider: float):
+	def __truediv__(self, divider: float) -> 'Vector2':
 		return Vector2(self.x / divider, self.y / divider)
 		
-	def __floordiv__(self, divider: float):
+	def __floordiv__(self, divider: float) -> 'Vector2':
 		return Vector2(self.x // divider, self.y // divider)
 		
-	def __mod__(self, modulo: float):
+	def __mod__(self, modulo: float) -> 'Vector2':
 		return Vector2(self.x % modulo, self.y % modulo)
 		
-	def __pow__(self, exponent: float):
+	def __pow__(self, exponent: float) -> 'Vector2':
 		return Vector2(self.x ** exponent, self.y ** exponent)
 		
-	def __round__(self, afterComma: int = 1):
+	def __round__(self, afterComma: int = 1) -> 'Vector2':
 		return Vector2(float(round(self.x, afterComma)), float(round(self.y, afterComma)))
 
-	def __invert__(self):
+	def __invert__(self) -> 'Vector2':
 		return Vector2(self.y, self.x)
 		
-	def __lt__(self, secondVector):
+	def __lt__(self, secondVector: 'Vector2') -> bool:
 		return self.length < secondVector.length
 		
-	def __le__(self, secondVector):
+	def __le__(self, secondVector: 'Vector2') -> bool:
 		return self.length <= secondVector.length
 		
-	def __gt__(self, secondVector):
+	def __gt__(self, secondVector: 'Vector2') -> bool:
 		return self.length > secondVector.length
 		
-	def __ge__(self, secondVector):
+	def __ge__(self, secondVector: 'Vector2') -> bool:
 		return self.length >= secondVector.length
 		
-	def __eq__(self, secondVector):
+	def __eq__(self, secondVector: 'Vector2') -> bool:
 		return self.length == secondVector.length
 		
-	def __ne__(self, secondVector):
+	def __ne__(self, secondVector: 'Vector2') -> bool:
 		return self.length != secondVector.length
 	
 	def GetAngle(self) -> float:
 		return acos(self.x / self.length)
 		
-	def RotatedTowards(self, angleInRadians: float):
+	def RotatedTowards(self, angleInRadians: float) -> 'Vector2':
 		angleInRadians %= 2*pi
 		
 		if angleInRadians < 0:
@@ -83,5 +83,5 @@ class Vector2:
 			
 		return Vector2(cos(angleInRadians) * self.length, sin(angleInRadians) * self.length)
 		
-	def RotatedBy(self, angleInRadians: float):
+	def RotatedBy(self, angleInRadians: float) -> 'Vector2':
 		return self.RotatedTowards(self.GetAngle() + angleInRadians )
