@@ -1,7 +1,7 @@
 from math import sin, cos, acos, sqrt, pi
 
 class Vector2:
-	def __init__(self, x: float, y: float):
+	def __init__(self, x: float, y: float) -> None:
 		self.x: float = float(x)
 		self.y: float = float(y)
 		self.length: float = self.GetLength()
