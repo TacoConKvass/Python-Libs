@@ -41,6 +41,9 @@ class Vector2:
 		
 	def __round__(self, afterComma: int = 1):
 		return Vector2(float(round(self.x, afterComma)), float(round(self.y, afterComma)))
+
+	def __invert__(self):
+		return Vector2(self.y, self.x)
 		
 	def __lt__(self, secondVector):
 		return self.length < secondVector.length
