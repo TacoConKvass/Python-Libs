@@ -1,5 +1,6 @@
-from math import pi
-from VectorLib import Vector2
+from math import pi, radians as rad
+from Lib.VectorLib import Vector2
+
 
 class Rectangle:
 	def __init__(self, width: float, height: float, center: Vector2 = Vector2(0, 0), rotation: float= 0) -> None:
@@ -35,6 +36,21 @@ class Line:
 		rotatedLine = Line(self.length)
 		rotatedLine.vertices = [vector.RotatedBy(angleInRadians) for vector in self.vertices]
 		return rotatedLine
+
+	def __str__(self) -> str:
+		return str(self.GetVertices())
+
+class Circle:
+	def __init__(self, radius: float, center: Vector2 = Vector2(0, 0)) -> None:
+		self.center = center
+		self.radius = radius
+		self.vertices = self.GenerateVertices()
+
+	def GenerateVertices(self) -> list:
+		return [Vector2(self.radius, 0).RotatedBy(rad(x * 9)) for x in range(0, 40)]
+
+	def GetVertices(self) -> list:
+		return [vector.show() for vector in self.vertices]
 
 	def __str__(self) -> str:
 		return str(self.GetVertices())
