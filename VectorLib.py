@@ -64,14 +64,11 @@ class Vector2:
 		return self.length != secondVector.length
 	
 	def GetAngle(self) -> float:
+		if self.y < 0:
+			return 2 * pi - acos(self.x / self.length)
 		return acos(self.x / self.length)
 		
 	def RotatedTowards(self, angleInRadians: float) -> 'Vector2':
-		angleInRadians %= 2*pi
-		
-		if angleInRadians < 0:
-			angleInRadians+= 2*pi
-		
 		if angleInRadians == pi:
 			return Vector2(-self.length, 0)
 			
@@ -84,4 +81,4 @@ class Vector2:
 		return Vector2(cos(angleInRadians) * self.length, sin(angleInRadians) * self.length)
 		
 	def RotatedBy(self, angleInRadians: float) -> 'Vector2':
-		return self.RotatedTowards(self.GetAngle() + angleInRadians )
+		return self.RotatedTowards(self.GetAngle() + angleInRadians)
