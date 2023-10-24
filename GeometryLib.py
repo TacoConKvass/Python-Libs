@@ -7,9 +7,9 @@ class Rectangle:
 		self.width = width
 		self.height = height
 		self.vertices = [  Vector2(width/2, height/2),
-									Vector2(width/2, -height/2),
-									Vector2(-width/2, -height/2),
-									Vector2(-width/2, height/2)  ]
+				Vector2(width/2, -height/2),
+				Vector2(-width/2, -height/2),
+				Vector2(-width/2, height/2)  ]
 									
 	def GetVertices(self) -> list:
 		return [vector.show() for vector in self.vertices]
