@@ -26,10 +26,12 @@ def TurtleSetup():
     t.pensize = 1
     t.speed(0)
     t.tracer(0, 0)
-
+    
+def Intersects(shape: object, shape2: object) -> bool:
+	return False
 
 def DrawFrame(shape: object, rgb: tuple = (1.0, 1.0, 1.0)) -> None:
-    if type(shape) not in [Rectangle, Circle, Line, Triangle]:
+    if type(shape) not in [Rectangle, Circle, Line, Triangle, Polygon]:
         return
 
     last_vertice_id = len(shape.vertices) - 1
@@ -42,7 +44,7 @@ def DrawFrame(shape: object, rgb: tuple = (1.0, 1.0, 1.0)) -> None:
         t.setpos( ((shape.center + vertice) * UNITS_TO_METERS).show() )
 
 def DrawFace(shape: object, rgb: tuple = (1.0, 1.0, 1.0)) -> None:
-    if type(shape) not in [Rectangle, Circle, Triangle]:
+    if type(shape) not in [Rectangle, Circle, Triangle, Polygon]:
         return
 
     last_vertice_id = len(shape.vertices) - 1
@@ -54,27 +56,33 @@ def DrawFace(shape: object, rgb: tuple = (1.0, 1.0, 1.0)) -> None:
     for vertice in shape.vertices:
         t.setpos( ((shape.center + vertice) * UNITS_TO_METERS).show() )
     t.end_fill()
+    
+    
+def RunMainLoop(objects: list, colors: list) -> None:
+    TurtleSetup()
+    while True:
+        t.clear()
+        for element in object_list:
+            current = object_list.index(element)
+            color = colors[current].value
 
-TurtleSetup()
-obj = Rectangle(3, 1)
-obj2 = Triangle(3)
-obj3 = Line(3)
-object_list = [obj2, obj, obj3]
+            if (type(element) in [Rectangle, Triangle]) or (type(element) == Polygon and len(element.vertices) >= 3):
+                DrawFace(element, color)
+            else:
+                DrawFrame(element, color)
 
-while True:
-    t.clear()
-    for element in object_list:
-        current = object_list.index(element)
-        color = Color.Gray.value if type(element) == Rectangle else Color.Yellow.value if type(element) == Line else Color.White.value
+            object_list[current] = element.RotatedBy(radians(60)/FPS) if type(element) == Circle else element.RotatedBy(radians(-60)/FPS)
 
-        if type(element) in [Rectangle, Triangle]:
-            DrawFace(element, color)
-        else:
-            DrawFrame(element, color)
+            if type(element) == Polygon:
+                object_list[current].center = object_list[0].vertices[(current* 10)-1]
 
-        object_list[current] = element.RotatedBy(radians(60)/FPS) if type(element) == Triangle else element.RotatedBy(radians(-60)/FPS)
+        t.update()
+        sleep(1/FPS)
 
-        if type(element) == Line:
-            object_list[current].center = object_list[0].vertices[2]
-    t.update()
-    sleep(1/FPS)
+obj = Circle(2)
+obj2 = Polygon()
+obj3 = Polygon()
+obj4 = Polygon()
+object_list = [obj, obj2, obj3, obj4]
+color_list = [Color.White, Color.Red, Color.Green, Color.Blue]
+RunMainLoop(object_list, color_list)
