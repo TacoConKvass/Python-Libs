@@ -151,4 +151,9 @@ class Vector3:
 		if self.length == 0:
 			return [0.0, 0.0]
 		leng_xy = ( (self.x ** 2) + (self.y ** 2) )
-		
+		if leng_xy == 0:
+			angle_x = 0
+		else:
+			angle_x = acos(self.x / leng_xy) if self.y > 0 else 2*pi - acos(self.x / leng_xy)
+		angle_z = acos(self.z / self.length) if self.x > 0 else 2*pi - acos(self.z / self.length)
+		return [angle_x, angle_z]
